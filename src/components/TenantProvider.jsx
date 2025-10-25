@@ -21,10 +21,7 @@ export default function TenantProvider({ children }) {
     if (tenant) window.localStorage.setItem('currentTenantId', tenant.id);
   }, [tenant]);
 
-  const value = useMemo(
-    () => ({ tenant, setTenant, tenants: user?.tenants || [] }),
-    [tenant, user]
-  );
+  const value = useMemo(() => ({ tenant, setTenant, tenants: user?.tenants || [] }), [tenant, user]);
 
   return <TenantContext.Provider value={value}>{children}</TenantContext.Provider>;
 }

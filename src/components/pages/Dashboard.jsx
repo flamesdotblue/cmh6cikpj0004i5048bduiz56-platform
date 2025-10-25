@@ -9,7 +9,7 @@ export default function Dashboard() {
     {
       icon: BarChart3,
       title: 'Revenue (mock)',
-      value: tenant?.currency === 'EUR' ? '€1,245,300' : '$1,345,900',
+      value: tenant?.currency === 'EUR' ? '€1,245,300' : tenant?.currency === 'GBP' ? '£1,045,300' : '$1,345,900',
       desc: 'Last 12 months'
     },
     { icon: Globe, title: 'Locales', value: (tenant?.locales || []).join(', '), desc: 'Localization enabled' },
@@ -42,7 +42,7 @@ export default function Dashboard() {
       </div>
 
       <div className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-6 text-sm text-zinc-700">
-        <p>This is a functional scaffold. Hook this dashboard to real Firestore collections (invoices, sales orders, inventory) and Cloud Functions for server-side aggregations.</p>
+        Connect these metrics to Firestore collections (invoices, orders, inventory) and Cloud Functions for secure server-side aggregations per tenant.
       </div>
     </div>
   );

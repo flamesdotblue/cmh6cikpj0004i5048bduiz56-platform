@@ -1,19 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from './AuthProvider';
-import SignIn from './auth/SignIn';
+import { Rocket, LogIn, Mail, Lock } from 'lucide-react';
 
 export default function RouteGuard({ children }) {
-  const { user, loading } = useAuth();
+  const { user, booting, login, loginWithGoogle, loading, firebaseEnabled } = useAuth();
+  const [email, setEmail] = useState('admin@globalerp.com');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  if (loading) {
+  if (booting) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900 h-10 w-10" />
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900" />
       </div>
     );
   }
 
-  if (!user) return <SignIn />;
+  if (!user) {
+    const onSubmit = async (e) => {
+      e.preventDefault();
+      setError('');
+      try {
+        await login(email, password);
+      } catch (err) {
+        setError('Sign in failed');
+      }
+    };
 
-  return <>{children}</>; 
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white to-zinc-50 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 text-white">
+              <Rocket className="h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold">Global ERP</h1>
+              <p className="text-xs text-zinc-600">Sign in to continue</p>
+            </div>
+          </div>
+
+          <form className="mt-6 grid gap-3" onSubmit={onSubmit}>
+            <label className="grid gap-1 text-sm">
+              <span className="text-zinc-700">Email</span>
+              <div className="flex items-center gap-2 rounded-lg border border-zinc-300 px-3 py-2">
+                <Mail className="h-4 w-4 text-zinc-500" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full outline-none"
+                  required
+                />
+              </div>
+            </label>
+            <label className="grid gap-1 text-sm">
+              <span className="text-zinc-700">Password</span>
+              <div className="flex items-center gap-2 rounded-lg border border-zinc-300 px-3 py-2">
+                <Lock className="h-4 w-4 text-zinc-500" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full outline-none"
+                  required
+                />
+              </div>
+            </label>
+            {error && <p className="text-sm text-red-600">{error}</p>}
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-zinc-900 px-4 py-2.5 text-white transition hover:bg-zinc-800 disabled:opacity-50"
+            >
+              <LogIn className="h-4 w-4" />
+              {loading ? 'Signing in...' : 'Sign in'}
+            </button>
+          </form>
+
+          <div className="mt-4">
+            <button
+              onClick={loginWithGoogle}
+              disabled={loading}
+              className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm hover:bg-zinc-50 disabled:opacity-50"
+            >
+              {firebaseEnabled ? 'Continue with Google' : 'Use Google (mock when Firebase is disabled)'}
+            </button>
+            {!firebaseEnabled && (
+              <p className="mt-2 text-xs text-zinc-600">
+                Firebase is not configured yet. Provide VITE_FIREBASE_* values to enable real auth.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
 }

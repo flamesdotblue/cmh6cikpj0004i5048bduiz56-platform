@@ -69,7 +69,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-6 text-sm text-zinc-700">
-        Link these settings to Firestore for persistence per tenant, and guard writes with security rules that check the user's role and tenant ID.
+        To persist changes per tenant, connect these fields to Firestore under /tenants/{'{tenantId}'} and guard writes via Security Rules.
       </div>
     </div>
   );

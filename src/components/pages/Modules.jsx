@@ -1,12 +1,20 @@
 import React from 'react';
-import { Boxes, ShoppingCart, Banknote, Users, Briefcase } from 'lucide-react';
+import { Boxes, ShoppingCart, Banknote, Users, Briefcase, Truck, Building, Factory, Stethoscope, ShieldCheck, Car, Hammer, BookOpen } from 'lucide-react';
 
 const MODULES = [
-  { key: 'finance', name: 'Finance', icon: Banknote, desc: 'GL, AP/AR, invoicing, tax' },
-  { key: 'inventory', name: 'Inventory', icon: Boxes, desc: 'SKUs, warehouses, stock' },
-  { key: 'sales', name: 'Sales & CRM', icon: ShoppingCart, desc: 'Leads, opportunities, orders' },
-  { key: 'hr', name: 'HR & Payroll', icon: Users, desc: 'Employees, payroll, time off' },
-  { key: 'projects', name: 'Projects', icon: Briefcase, desc: 'WBS, tasks, timesheets' }
+  { key: 'finance', name: 'Finance', icon: Banknote, desc: 'GL, AP/AR, Invoicing, Tax, Payments' },
+  { key: 'inventory', name: 'Inventory', icon: Boxes, desc: 'SKUs, Warehouses, Stock, Movements' },
+  { key: 'sales', name: 'Sales & CRM', icon: ShoppingCart, desc: 'Leads, Opportunities, Orders, Billing' },
+  { key: 'procurement', name: 'Procurement', icon: Truck, desc: 'Suppliers, POs, Receipts, Contracts' },
+  { key: 'projects', name: 'Projects', icon: Briefcase, desc: 'WBS, Tasks, Budgets, Timesheets' },
+  { key: 'hr', name: 'HR & Payroll', icon: Users, desc: 'Employees, Payroll, Time Off, Reviews' },
+  { key: 'facilities', name: 'Facilities', icon: Building, desc: 'Locations, Assets, Maintenance' },
+  { key: 'manufacturing', name: 'Manufacturing', icon: Factory, desc: 'BOM, Routing, MRP, Work Orders' },
+  { key: 'healthcare', name: 'Healthcare', icon: Stethoscope, desc: 'Patients, Appointments, Billing' },
+  { key: 'compliance', name: 'Compliance', icon: ShieldCheck, desc: 'Policies, Audits, Incidents' },
+  { key: 'fleet', name: 'Fleet', icon: Car, desc: 'Vehicles, Trips, Fuel, Service' },
+  { key: 'construction', name: 'Construction', icon: Hammer, desc: 'Jobs, Cost Codes, RFIs, Submittals' },
+  { key: 'knowledge', name: 'Knowledge', icon: BookOpen, desc: 'Docs, SOPs, Training, Wikis' },
 ];
 
 export default function Modules() {
